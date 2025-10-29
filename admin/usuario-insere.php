@@ -7,10 +7,7 @@ require_once "../src/Models/usuario.php";
 	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 		// Validação do preenchimento dos campos
-		if (
-			empty($_POST['nome']) || empty($_POST['email']) || 
-			empty($_POST['senha']) || empty($$_POST['tipo'])
-			){
+		if (empty($_POST['nome']) || empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo'])){
 				$erro = 'Prencha todos os campos';
 			} else {
 				echo "Campos Ok";
@@ -38,22 +35,22 @@ require_once "../src/Models/usuario.php";
 
 			<div class="mb-3">
 				<label class="form-label" for="nome">Nome:</label>
-				<input value="<?=$_POST['nome'] ?? ''?>" class="form-control" type="text" id="nome" name="nome">
+				<input required value="<?=$_POST['nome'] ?? ''?>" class="form-control" type="text" id="nome" name="nome">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="email">E-mail:</label>
-				<input value="<?=$_POST['email'] ?? ''?>"class="form-control" type="email" id="email" name="email">
+				<input required value="<?=$_POST['email'] ?? ''?>"class="form-control" type="email" id="email" name="email">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="senha">Senha:</label>
-				<input class="form-control" type="password" id="senha" name="senha">
+				<input required class="form-control" type="password" id="senha" name="senha">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="tipo">Tipo:</label>
-				<select class="form-select" name="tipo" id="tipo">
+				<select required class="form-select" name="tipo" id="tipo">
 					<option value=""></option>
 					<option value="editor">Editor</option>
 					<option value="admin">Administrador</option>
