@@ -13,8 +13,7 @@
             string $valorEmail,
             string $valorSenha,
             string $valorTipo,
-            ?int $valorId = null
-        ) {
+            ?int $valorId = null) {
             $this->setNome($valorNome);
             $this->setEmail($valorEmail);
             $this->setSenha($valorSenha);
