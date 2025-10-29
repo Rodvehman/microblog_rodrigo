@@ -1,5 +1,6 @@
 <?php 
 require_once "../src/Models/usuario.php";
+require_once "../src/Helpers/Utils.php";
 
 	// variável que será usada para montar mensagens de erros personalizadas
 	$erro = null;
