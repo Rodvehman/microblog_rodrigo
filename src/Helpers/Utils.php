@@ -16,5 +16,9 @@
                     return trim(filter_var($valor, FILTER_SANITIZE_SPECIAL_CHARS));
             }
         }
+        
+        public static function codificarSenha(string $valorSenha):string {
+            return password_hash($valorSenha, PASSWORD_DEFAULT);
+        }
     }
 ?>

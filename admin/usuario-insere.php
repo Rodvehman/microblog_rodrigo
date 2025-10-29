@@ -12,7 +12,16 @@ require_once "../src/Helpers/Utils.php";
 			empty($_POST['senha']) || empty($_POST['tipo'])){
 				$erro = 'Prencha todos os campos';
 			} else {
-				$nome = $_POST['nome'];
+				// Capturando e Sanitizando os valores do formulário
+				$nome = Utils::sanitizar($_POST['nome']);
+				$email = Utils::sanitizar($_POST['email'], 'email');//O dado e o tipo de sanitização
+				$tipo = Utils::sanitizar($_POST['tipo']);
+
+				// Capturando e codificando (gernando um hash de senha)
+				$senha = Utils::codificarSenha($_POST['senha']);
+
+				// Criando um objeto para um novo usuário com seus dados
+				$novoUsuario = new Usuario($nome, $email, $senha, $tipo);
 		}
 	}
 
