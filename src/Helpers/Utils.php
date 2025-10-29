@@ -20,5 +20,11 @@
         public static function codificarSenha(string $valorSenha):string {
             return password_hash($valorSenha, PASSWORD_DEFAULT);
         }
+        
+        // Crie um método chamado dump, faça ele receber um parâmetro chamado $dados, e faça o 
+        // var_dumpr dentro da tag <pre>
+        public static function dump($dados):mixed {
+            return var_dump($dados);
+        }
     }
 ?>

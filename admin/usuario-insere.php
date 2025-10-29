@@ -22,6 +22,9 @@ require_once "../src/Helpers/Utils.php";
 
 				// Criando um objeto para um novo usuário com seus dados
 				$novoUsuario = new Usuario($nome, $email, $senha, $tipo);
+
+				// Teste seu método dump AQUI passando o objeto $novoUsuario
+				Utils::dump($novoUsuario);
 		}
 	}
 
