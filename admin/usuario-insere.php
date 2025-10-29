@@ -7,7 +7,8 @@ require_once "../src/Models/usuario.php";
 	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		
 		// Validação do preenchimento dos campos
-		if (empty($_POST['nome']) || empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo'])){
+		if (empty($_POST['nome']) || empty($_POST['email']) ||
+			empty($_POST['senha']) || empty($_POST['tipo'])){
 				$erro = 'Prencha todos os campos';
 			} else {
 				echo "Campos Ok";
