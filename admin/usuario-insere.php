@@ -11,8 +11,8 @@ require_once "../src/Models/usuario.php";
 			empty($_POST['senha']) || empty($_POST['tipo'])){
 				$erro = 'Prencha todos os campos';
 			} else {
-				echo "Campos Ok";
-			}
+				$nome = $_POST['nome'];
+		}
 	}
 
 	require_once "../includes/cabecalho-admin.php";
