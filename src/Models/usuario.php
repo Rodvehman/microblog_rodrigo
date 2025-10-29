@@ -35,7 +35,7 @@
             $this->tipo = $valorTipo;
         }
         private function setID(?int $valorID):void {
-            $this->id = $valorId;
+            $this->id = $valorID;
         }
     }
-?>
+?>  
