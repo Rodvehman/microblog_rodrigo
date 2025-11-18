@@ -1,16 +1,13 @@
 <?php 
+	require_once "../src/Database/Conecta.php";
+	require_once "../src/Models/Usuario.php";
+	require_once "../src/Services/UsuarioServico.php";
+	require_once "../src/Helpers/Utils.php";
 
+	// require_once "../src/Services/AutenticacaoServico.php";
+    // AutenticacaoServico::exigirLogin();
+	// AutenticacaoServico::exigirAdmin();
 
-require_once "../src/Database/Conecta.php";
-require_once "../src/Models/Usuario.php";
-require_once "../src/Services/UsuarioServico.php";
-require_once "../src/Helpers/Utils.php";
-
-require_once "../src/Services/AutenticacaoServico.php";
-AutenticacaoServico::exigirLogin();
-AutenticacaoServico::exigirAdmin();
-
-require_once "../includes/cabecalho-admin.php";
 
 	//Variável que será Usada para montar mensagens de erro personalizado
 	$erro = null;
@@ -51,7 +48,6 @@ require_once "../includes/cabecalho-admin.php";
 	}
 
 	require_once "../includes/cabecalho-admin.php";
->>>>>>> Stashed changes
 
 ?>
 
@@ -62,27 +58,30 @@ require_once "../includes/cabecalho-admin.php";
 		<h2 class="text-center">
 		Inserir novo usuário
 		</h2>
-				
+		<!-- O paragráfo mostrará um mensagem de erro se ela existir -->
+		<?php if($erro): ?>
+		<p class="alert alert-danger text-center"><?=$erro?></p>
+		<?php endif;?>
 		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off">
 
 			<div class="mb-3">
 				<label class="form-label" for="nome">Nome:</label>
-				<input class="form-control" type="text" id="nome" name="nome">
+				<input required value="<?=$_POST['nome'] ?? ''?>" class="form-control" type="text" id="nome" name="nome">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="email">E-mail:</label>
-				<input class="form-control" type="email" id="email" name="email">
+				<input required value="<?=$_POST['email'] ?? ''?>" class="form-control" type="email" id="email" name="email">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="senha">Senha:</label>
-				<input class="form-control" type="password" id="senha" name="senha">
+				<input required class="form-control" type="password" id="senha" name="senha">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="tipo">Tipo:</label>
-				<select class="form-select" name="tipo" id="tipo">
+				<select required class="form-select" name="tipo" id="tipo">
 					<option value=""></option>
 					<option value="editor">Editor</option>
 					<option value="admin">Administrador</option>
