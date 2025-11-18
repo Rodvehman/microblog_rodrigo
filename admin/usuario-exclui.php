@@ -16,6 +16,7 @@
 	// Inicialização de variável de erro e do objeto do serviço
 	$erro = null;
 	$usuarioServico = new UsuarioServico();
+	$dadosDoUsuario = [];
 	
 	// Se o id passado via URL for o mesmo id do usuário que está logado
 	if ($id === $_SESSION['id']){
@@ -42,7 +43,7 @@
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 
-		<h2 class="text-center" href="../admin/usuario-exclui.php?id=<?=$usuario['id']?>">
+		<h2 class="text-center" href="../admin/usuario-exclui.php?id=<?=$dadosDoUsuario['id']?>">
 			Excluir usuário
 		</h2>
 
