@@ -11,7 +11,7 @@
 	$id = Utils::sanitizar($_GET['id']);
 	
 	// Ao tentar abrir usuario-exclui.php sem o parâmetro id, redirecionamos
-	if (!$id) Utils::redirecionarPara('usuarios');
+	if (!$id) Utils::redirecionarPara('usuarios.php');
 	
 	// Inicialização de variável de erro e do objeto do serviço
 	$erro = null;

@@ -37,7 +37,7 @@
             
         }
 
-        // Redireciona para a página desejada, com extensão ".php". Caso seja outra extensão, remova a extensão do método
+        // Redireciona para a página desejada.
         public static function redirecionarPara(string $pagina):void {
             header("location:$pagina");
             exit;
