@@ -26,7 +26,7 @@
 		try {
 			$dadosDoUsuario = $usuarioServico->buscarPorId($id);
 			// Tente executar o método excluir passando o id de quem será excluído
-			$dadosDoUsuario = $usuarioServico->excluir($id);
+			$usuarioServico->excluir($id);
 			$sucesso = "Usuário excluído com sucesso!";
 		} catch (\Throwable $e) {
 			// Deu errado? Dispare um erro r monte uma mensagem com detalhes
