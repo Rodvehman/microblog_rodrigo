@@ -17,6 +17,14 @@
 	$erro = null;
 	$usuarioServico = new UsuarioServico();
 	
+	// Se o id passado via URL for o mesmo id do usuário que está logado
+	if ($id === $_SESSION['id'] ){
+		
+	} else {
+		
+	}
+	
+	
 	// Tente executar o método excluir passando o id de quem será excluído
 	try {
 		$usuarioServico->excluir($id);
