@@ -12,7 +12,7 @@
 
 	try {
 		$noticias = $noticiaServico->buscar();
-		
+		Utils::dump($noticias);
 	} catch (\Throwable $e) {
 		$erro = "Erro ao buscar notícias. <br>".$e->getMessage();
 	}
