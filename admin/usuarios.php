@@ -22,6 +22,8 @@
 	} catch (\Throwable $e) {
 		$erro = "Erro ao buscar usuários.<br>".$e->getMessage();
 	}
+
+		require_once "../includes/cabecalho-admin.php";
 ?>
 
 
