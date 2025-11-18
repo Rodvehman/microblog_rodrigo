@@ -18,13 +18,14 @@
 	$usuarioServico = new UsuarioServico();
 	
 	// Se o id passado via URL for o mesmo id do usuário que está logado
-	if ($id === $_SESSION['id'] ){
+	if ($id === $_SESSION['id']){
 		// Neste caso, não vamos possibilitar a exclusão e vamos avisar o usuário
 		$erro = "Você não pode excluir o seu próprio usuário!";
 	} else {
 		// Caso contrário, siga em frente (carregue os dados e exclua)
 		try {
 			$dadosDoUsuario = $usuarioServico->buscarPorId($id);
+
 			// Tente executar o método excluir passando o id de quem será excluído
 			$usuarioServico->excluir($id);
 			$sucesso = "Usuário excluído com sucesso!";
