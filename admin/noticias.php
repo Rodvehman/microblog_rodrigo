@@ -1,4 +1,22 @@
 <?php
+	require_once "../microblog_rodrigo/src/Database/Conecta.php";
+	require_once "../microblog_rodrigo/src/Helpers/Utils.php";
+	require_once "../microblog_rodrigo/src/Services/AutenticacaoServico.php";
+	require_once "../microblog_rodrigo/src/Services/NoticiaServico.php";
+
+	AutenticacaoServico::exigirLogin();
+
+	$erro = null;
+	$noticias = [];
+	$noticiaServico = new NoticiaServico();
+
+	try {
+		
+	} catch (\Throwable $e) {
+		$erro = "Erro ao buscar notícias. <br>".$e->getMessage();
+	}
+
+	require_once "../microblog_rodrigo/includes/cabecalho-admin.php";
 	class Noticia
 	{
 		private ?int $id;
@@ -93,6 +111,10 @@
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">Notícias <span class="badge bg-dark">X</span></h2>
+
+		<?php if ($erro): ?>
+			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
+		<?php endif; ?>
 
 		<p class="text-center mt-5">
 			<a class="btn btn-primary" href="noticia-insere.php">
