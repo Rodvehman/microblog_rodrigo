@@ -57,13 +57,13 @@
 						<td class="text-center"></td>	
 						<td class="text-center">
 							<a class="btn btn-warning" 
-							href="noticia-atualiza.php">
+							href="noticia-atualiza.php?id=<?= $noticia['id'] ?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
 						</td>
 						<td>
 							<a class="btn btn-danger excluir" 
-							href="noticia-exclui.php">
+							href="noticia-exclui.php?id=<?= $noticia['id'] ?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
 			<?php endforeach; ?>
