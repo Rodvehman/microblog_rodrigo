@@ -9,7 +9,44 @@ AutenticacaoServico::exigirLogin();
 // Inicialização
 	$erro = null;
 	$usuarioServico = new UsuarioServico();
-	
+
+	try {
+		// Buscar a partir do ID do usuário logado
+		$dados = $usuarioServico->buscarPorId($_SESSION['id']);
+		if (!$dados) $erro = "Usuário não encontrado";
+	} catch (\Throwable $e) {
+		$erro = "Erro ao buscar usuário.<br>".$e->getMessage();
+	}
+
+	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+			if (empty($_POST['nome'] || empty($_POST['email'] || empty($_POST['tipo'])))){
+				$erro = "Nome, e-mail e tipo são obrigatórios.<br>";
+	} else {
+			try {
+				$nome = Utils::sanitizar($_POST['nome']);
+				$email = Utils::sanitizar($_POST['email']);
+				$tipo = Utils::sanitizar($_POST['tipo']);
+
+				// Se o campo senha estiver vazio, manter a senha existente. Caso contrário, verifique as senhas (formulário e banco de dados).
+				$senha = empty($_POST['senha']) ? $dados['senha'] : Utils::verificarSenha($_POST['senha'], $dados['senha']);
+
+				// Montando um objeto com os dados do usuário que será atualizado
+				$usuario = new Usuario($nome, $email, $senha, $tipo, $id);
+
+				// Executar o serviço para atualizar
+				$usuarioServico->atualizar($usuario);
+
+				// Forçando a atualização do usuário da sessão
+				$_SESSION['nome'] = $nome;
+
+				// Redirecionar para a lista de usuários
+				Utils::redirecionarPara("index.php");
+			} catch (\Throwable $e) {
+				$erro = "Erro ao editar usuário.<br>".$e->getMessage();
+			}
+		}
+	}
+
 require_once "../includes/cabecalho-admin.php";
 ?>
 
@@ -21,17 +58,21 @@ require_once "../includes/cabecalho-admin.php";
 			Atualizar meus dados
 		</h2>
 
+		<?php if($erro): ?>
+		<p class="alert alert-danger text-center"><?=$erro?></p>
+		<?php endif;?>
+
 		<form class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar">
-			<input type="hidden" name="id" value="id do usuário logado">
+			<input type="hidden" name="id" value="<?= $dados['id'] ?>">
 
 			<div class="mb-3">
 				<label class="form-label" for="nome">Nome:</label>
-				<input value="Nome do usuário logado" class="form-control" type="text" id="nome" name="nome">
+				<input value="<?= $dados['nome'] ?>" class="form-control" type="text" id="nome" name="nome">
 			</div>
 
 			<div class="mb-3">
 				<label class="form-label" for="email">E-mail:</label>
-				<input value="email@dousuariologado.com" class="form-control" type="email" id="email" name="email">
+				<input value="<?= $dados['email'] ?>" class="form-control" type="email" id="email" name="email">
 			</div>
 
 			<div class="mb-3">
