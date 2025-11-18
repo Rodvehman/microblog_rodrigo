@@ -1,3 +1,11 @@
+<?php 
+require_once "../src/Services/AutenticacaoServico.php";
+
+/* Se existir/houver um parâmetro de URL chamado 'sair',
+execute o método logout. Obs.: para o parâmetro existir,
+é necessário clicar/acionar o link Sair. */
+if(isset($_GET['sair'])) AutenticacaoServico::logout();
+?>
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
 
@@ -38,17 +46,18 @@
                         </li>
 
 
-                       
+                        <?php if( $_SESSION['tipo'] === 'admin' ): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="usuarios.php">Usuários</a>
                         </li>
-
+                        <?php endif; ?>
 
                         <li class="nav-item">
                             <a class="nav-link" href="../index.php" target="_blank">Área pública</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold" href=""> <i class="bi bi-x-circle"></i> Sair</a>
+                            <a class="nav-link fw-bold" 
+                            href="?sair"> <i class="bi bi-x-circle"></i> Sair</a>
                         </li>
                     </ul>
 
@@ -60,4 +69,3 @@
 
     <main class="flex-shrink-0">
         <div class="container">
-

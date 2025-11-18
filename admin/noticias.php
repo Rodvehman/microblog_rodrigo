@@ -1,8 +1,8 @@
 <?php
-	require_once "../microblog_rodrigo/src/Database/Conecta.php";
-	require_once "../microblog_rodrigo/src/Helpers/Utils.php";
-	require_once "../microblog_rodrigo/src/Services/AutenticacaoServico.php";
-	require_once "../microblog_rodrigo/src/Services/NoticiaServico.php";
+	require_once "../src/Database/Conecta.php";
+	require_once "../src/Helpers/Utils.php";
+	require_once "../src/Services/AutenticacaoServico.php";
+	require_once "../src/Services/NoticiaServico.php";
 
 	AutenticacaoServico::exigirLogin();
 
@@ -11,12 +11,13 @@
 	$noticiaServico = new NoticiaServico();
 
 	try {
-		
+		$noticias = $noticiaServico->buscar();
+		Utils::dump($noticias);
 	} catch (\Throwable $e) {
 		$erro = "Erro ao buscar notícias. <br>".$e->getMessage();
 	}
 
-	require_once "../microblog_rodrigo/includes/cabecalho-admin.php";
+	require_once "../includes/cabecalho-admin.php";
 	class Noticia
 	{
 		private ?int $id;
