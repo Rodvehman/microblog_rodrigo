@@ -19,21 +19,21 @@
 	
 	// Se o id passado via URL for o mesmo id do usuário que está logado
 	if ($id === $_SESSION['id'] ){
-		
+		// Neste caso, não vamos possibilitar a exclusão e vamos avisar o usuário
+		$erro = "Você não pode excluir o seu próprio usuário!";
 	} else {
+		// Caso contrário, siga em frente (carregue os dados e exclua)
+		try {
+			$dadosDoUsuario = $usuarioServico->buscarPorId($id);
+			// Tente executar o método excluir passando o id de quem será excluído
+			$dadosDoUsuario = $usuarioServico->excluir($id);
+			$sucesso = "Usuário excluído com sucesso!";
+		} catch (\Throwable $e) {
+			// Deu errado? Dispare um erro r monte uma mensagem com detalhes
+			$erro = "Erro ao excluir o usuário.<br>".$e->getMessage();
+		}	
+	}
 		
-	}
-	
-	
-	// Tente executar o método excluir passando o id de quem será excluído
-	try {
-		$usuarioServico->excluir($id);
-		$sucesso = "Usuário excluído com sucesso!";
-	} catch (\Throwable $e) {
-		// Deu errado? Dispare um erro r monte uma mensagem com detalhes
-		$erro = "Erro ao excluir o usuário.<br>".$e->getMessage();
-	}
-	
 	require_once "../includes/cabecalho-admin.php";
 ?>
 

@@ -36,7 +36,7 @@
 
 				$usuarioServico->inserir($novoUsuario);
 				
-				$pagina = 'usuarios';
+				$pagina = 'usuarios.php';
 				Utils::redirecionarPara($pagina);
 
 			} catch (\Throwable $e) {
