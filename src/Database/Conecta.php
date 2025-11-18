@@ -1,36 +1,51 @@
 <?php
-class Conecta
-{
-    private static $servidor = "localhost";
+
+class Conecta {
+    // Variáveis estáticas para as credenciais
+    private static $servidor = "localhost"; 
     private static $banco = "microblog_rodrigo";
-    private static $usuario = "root";
-    private static $senha = "";
+    private static $usuario = "root"; 
+    private static $senha = ""; 
+
+    // Variável estática para armazenar a instância da conexão PDO
     private static $conexao = null;
 
-    private function __construct() {} // Impede instância direta
-
-    public static function getConexao()
-    {
+    /**
+     * Tenta estabelecer e retornar a conexão PDO.
+     * Se a conexão já existir, retorna a instância existente.
+     * @return PDO A instância da conexão PDO.
+     */
+    public static function getConexao(): PDO {
+        // Verifica se a conexão já foi estabelecida
         if (self::$conexao === null) {
             try {
+                // Cria a DSN (Data Source Name)
+                $dsn = "mysql:host=" . self::$servidor . ";dbname=" . self::$banco . ";charset=utf8";
+
+                // Estabelece a conexão PDO
                 self::$conexao = new PDO(
-                    "mysql:host=" . self::$servidor . ";dbname=" . self::$banco . ";charset=utf8",
-                    self::$usuario,
+                    $dsn, 
+                    self::$usuario, 
                     self::$senha
                 );
 
+                // Configurações do PDO (as mesmas do script original)
+                // 1. Lançar exceções em caso de erros
                 self::$conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                
+                // 2. Retornar arrays associativos por padrão
                 self::$conexao->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
             } catch (PDOException $erro) {
-                die("Erro ao conectar: " . $erro->getMessage());
+                // Encerra o script e exibe o erro se a conexão falhar
+                die("🚨 Erro ao conectar com o banco de dados: " . $erro->getMessage());
             }
         }
 
+        // Retorna a instância da conexão (seja a nova ou a existente)
         return self::$conexao;
     }
+
 }
 
-// Teste de conexão
 Conecta::getConexao();
-?>

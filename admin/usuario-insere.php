@@ -1,30 +1,49 @@
 <?php 
-require_once "../src/Models/usuario.php";
-require_once "../src/Helpers/Utils.php";
+	require_once "../src/Database/Conecta.php";
+	require_once "../src/Models/Usuario.php";
+	require_once "../src/Services/UsuarioServico.php";
+	require_once "../src/Helpers/Utils.php";
 
-	// variável que será usada para montar mensagens de erros personalizadas
+	// require_once "../src/Services/AutenticacaoServico.php";
+    // AutenticacaoServico::exigirLogin();
+	// AutenticacaoServico::exigirAdmin();
+
+
+	//Variável que será Usada para montar mensagens de erro personalizado
 	$erro = null;
 
-	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-		
-		// Validação do preenchimento dos campos
-		if (empty($_POST['nome']) || empty($_POST['email']) ||
-			empty($_POST['senha']) || empty($_POST['tipo'])){
-				$erro = 'Prencha todos os campos';
-			} else {
-				// Capturando e Sanitizando os valores do formulário
+	// Inicializando um objeto de serviço para CRUD dos usuários
+	$usuarioServico = new UsuarioServico();
+
+
+
+
+	if($_SERVER['REQUEST_METHOD'] === 'POST'){
+		//Validação de preenchimento dos campos 
+		if(empty($_POST['nome']) || empty($_POST['email']) || empty($_POST['senha']) || empty($_POST['tipo'])){
+			$erro = "Preencha todos os campos!";
+		}else{
+			try {
+				//cod
 				$nome = Utils::sanitizar($_POST['nome']);
-				$email = Utils::sanitizar($_POST['email'], 'email');//O dado e o tipo de sanitização
+				$email = Utils::sanitizar($_POST['email'],'email');
 				$tipo = Utils::sanitizar($_POST['tipo']);
+				$senha = Utils::codificaSenha($_POST['senha']);
 
-				// Capturando e codificando (gernando um hash de senha)
-				$senha = Utils::codificarSenha($_POST['senha']);
+				$novoUsuario = new Usuario($nome,$email,$senha,$tipo);
 
-				// Criando um objeto para um novo usuário com seus dados
-				$novoUsuario = new Usuario($nome, $email, $senha, $tipo);
+				// Executar o serviço e passar os novos dados
 
-				// Teste seu método dump AQUI passando o objeto $novoUsuario
-				Utils::dump($novoUsuario);
+				$usuarioServico->inserir($novoUsuario);
+				
+				$pagina = 'usuarios';
+				Utils::redirecionarPara($pagina);
+
+			} catch (\Throwable $e) {
+				/*  Se alguma ação detro do try falhar, o PHP vai lançar (usando a classe Throwwable) um erro/exceção.
+				    Ao usar o parâmero $e (ou outro nome), temos acesso aos detalhes do que aconteceu. */
+				$erro= "Erro ao inserir usuário.<br>".$e->getMessage();
+			}
 		}
 	}
 
@@ -39,12 +58,10 @@ require_once "../src/Helpers/Utils.php";
 		<h2 class="text-center">
 		Inserir novo usuário
 		</h2>
-
-		<!-- Parágrafo abaixo irá aparecer SOMENTE se houver algum erro. E neste caso, exibirá a mensagem de erro. -->
+		<!-- O paragráfo mostrará um mensagem de erro se ela existir -->
 		<?php if($erro): ?>
-		<p class="alert alert-danger text-center"> <?=$erro?> </p>
-		<?php endif; ?>		
-
+		<p class="alert alert-danger text-center"><?=$erro?></p>
+		<?php endif;?>
 		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off">
 
 			<div class="mb-3">
@@ -54,7 +71,7 @@ require_once "../src/Helpers/Utils.php";
 
 			<div class="mb-3">
 				<label class="form-label" for="email">E-mail:</label>
-				<input required value="<?=$_POST['email'] ?? ''?>"class="form-control" type="email" id="email" name="email">
+				<input required value="<?=$_POST['email'] ?? ''?>" class="form-control" type="email" id="email" name="email">
 			</div>
 
 			<div class="mb-3">

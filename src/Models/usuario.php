@@ -1,40 +1,65 @@
-<?php
-    // src/Models/Usuario.php
+<?php 
+    /*  src/Models/Usuario.php */
 
     class Usuario{
-        private string $nome;
+        private string $nome ;
         private string $email;
         private string $senha;
         private string $tipo;
         private ?int $id;
+
+        public function __construct(string $valorNome,string $valorEmail,string $valorSenha,string $valorTipo,?string $valorId = null){
         
-        public function __construct( 
-            string $valorNome,
-            string $valorEmail,
-            string $valorSenha,
-            string $valorTipo,
-            ?int $valorId = null) {
             $this->setNome($valorNome);
             $this->setEmail($valorEmail);
             $this->setSenha($valorSenha);
             $this->setTipo($valorTipo);
             $this->setId($valorId);
+
         }
 
-        private function setNome(string $valorNome):void {
+        private function setNome(string $valorNome): void{
             $this->nome = $valorNome;
         }
-        private function setEmail(string $valorEmail):void {
+
+        private function setEmail(string $valorEmail): void{
             $this->email = $valorEmail;
         }
-        private function setSenha(string $valorSenha):void{
+
+        private function setSenha(string $valorSenha): void{
             $this->senha = $valorSenha;
         }
-        private function setTipo(string $valorTipo):void {
+
+        private function setTipo(string $valorTipo): void{
             $this->tipo = $valorTipo;
         }
-        private function setID(?int $valorID):void {
-            $this->id = $valorID;
+
+        private function setId(?string $valorId): void{
+            $this->id = $valorId;
         }
+
+        //   Métodos Getters (acesso de leitura)
+
+        public function getNome():string{
+            return $this->nome;
+        }
+
+        public function getEmail():string{
+            return $this->email;
+        }
+
+        public function getTipo():string{
+            return $this->tipo;
+        }
+
+        public function getSenha():string{
+            return $this->senha;
+        }
+
+        public function getID():?int{
+            return $this->id;
+        }
+
     }
-?>  
+
+?>

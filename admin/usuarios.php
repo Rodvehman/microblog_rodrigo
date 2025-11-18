@@ -1,13 +1,39 @@
 <?php 
-require_once "../includes/cabecalho-admin.php";
+	require_once "../includes/cabecalho-admin.php";
+	require_once "../src/Database/Conecta.php";
+	require_once "../src/Services/UsuarioServico.php";
+	require_once "../src/Helpers/Utils.php";
 
+	require_once "../src/Services/AutenticacaoServico.php";
+    AutenticacaoServico::exigirLogin();
+	AutenticacaoServico::exigirAdmin();
+
+	
+	// Inicializações
+	
+	$erro = null;
+	
+	$usuarios = [];
+	$usuarioServico = new UsuarioServico();
+
+	try {
+		$usuarios = $usuarioServico->buscar();
+		//Utils::mostrarVardump($usuarios);
+	} catch (\Throwable $e) {
+		$erro = "Erro ao buscar usuários.<br>".$e->getMessage();
+	}
 ?>
 
 
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
-		<h2 class="text-center">Usuários <span class="badge bg-dark">X</span></h2>
+		<h2 class="text-center">Usuários <span class="badge bg-dark"><?=count($usuarios)?></span></h2>
+		
+		<!-- O paragráfo mostrará um mensagem de erro se ela existir -->
+		<?php if($erro): ?>
+			<p class="alert alert-danger text-center"><?=$erro?></p>
+		<?php endif;?>
 
 		<p class="text-center mt-5">
 			<a class="btn btn-primary" href="usuario-insere.php">
@@ -24,29 +50,27 @@ require_once "../includes/cabecalho-admin.php";
 						<th>E-mail</th>
 						<th>Tipo</th>
 						<th class="text-center">Operações</th>
-					</tr>
 				</thead>
 
 				<tbody>
-
-				
-					<tr>
-						<td> nome do usuário... </td>
-						<td> email do usuário... </td>
-						<td> tipo do usuário... </td>
-						<td class="text-center">
-							<a class="btn btn-warning" 
-							href="usuario-atualiza.php">
-							<i class="bi bi-pencil"></i> Atualizar
+					<?php foreach ($usuarios as $usuario):?>
+						<tr>
+							<td><?=$usuario['nome']?></td>
+							<td><?=$usuario['email']?></td>
+							<td><?=$usuario['tipo']?></td>
+							<td class="text-center">
+								<a class="btn btn-warning" 
+								href="usuario-atualiza.php?id=<?=$usuario['id']?>">
+								<i class="bi bi-pencil"></i> Atualizar
 							</a>
-						
+							
 							<a class="btn btn-danger excluir" 
-							href="usuario-exclui.php">
+							href="../admin/usuario-exclui.php?id=<?=$usuario['id']?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
-						</td>
-					</tr>
-				
+							</td>
+						</tr>
+					<?php endforeach ?>
 
 				</tbody>                
 			</table>
@@ -55,8 +79,8 @@ require_once "../includes/cabecalho-admin.php";
 	</article>
 </div>
 
+<script src="../js/confirmar-exclusao.js"></script>
 
-<?php 
+<?php
 require_once "../includes/rodape-admin.php";
 ?>
-
