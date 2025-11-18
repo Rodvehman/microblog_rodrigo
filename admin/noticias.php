@@ -23,7 +23,7 @@
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
-		<h2 class="text-center">Notícias <span class="badge bg-dark">X</span></h2>
+		<h2 class="text-center">Notícias <span class="badge bg-dark"><?= count($noticias) ?></span></h2>
 
 		<?php if ($erro): ?>
 			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
