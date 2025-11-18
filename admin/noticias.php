@@ -12,7 +12,7 @@
 
 	try {
 		$noticias = $noticiaServico->buscar();
-		Utils::dump($noticias);
+		// Utils::dump($noticias);
 	} catch (\Throwable $e) {
 		$erro = "Erro ao buscar notícias. <br>".$e->getMessage();
 	}
@@ -49,14 +49,12 @@
 				</thead>
 
 				<tbody>
-
-
-					<tr>
-                        <td> Título... </td>
-                        <td> Data... </td>
-						<td> Autor... </td>
-						
-
+				<?php foreach ($noticias as $noticia): ?>
+					<tr>	
+						<td> <?= $noticia['titulo'] ?> </td>
+						<td><?= $noticia['data'] ?></td>
+						<td><?= $noticia['autor'] ?></td>
+						<td class="text-center"></td>	
 						<td class="text-center">
 							<a class="btn btn-warning" 
 							href="noticia-atualiza.php">
@@ -68,6 +66,7 @@
 							href="noticia-exclui.php">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
+			<?php endforeach; ?>
 						</td>
 					</tr>
 
