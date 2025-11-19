@@ -55,7 +55,7 @@
                 // Pode buscar/exibir qualquer notícia, bastando saber o id da notícia
                 $sql = "SELECT * FROM noticias WHERE id = :id";
             } else {
-                // Senão, pode buscar/exibir qualquer notícia desde que seja do próprio editor
+                // Senão, pode buscar/exibir qualquer notícia desde que seja do próprio EDITOR
                 $sql = "SELECT * FROM noticias WHERE id = :id AND usuario_id = :usuario_id";
             }
 
