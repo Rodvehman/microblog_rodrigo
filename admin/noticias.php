@@ -11,7 +11,7 @@
 	$noticiaServico = new NoticiaServico();
 
 	try {
-		$noticias = $noticiaServico->buscar();
+		$noticias = $noticiaServico->buscar($_SESSION['tipo'], $_SESSION['id']);
 		// Utils::dump($noticias);
 	} catch (\Throwable $e) {
 		$erro = "Erro ao buscar notícias. <br>".$e->getMessage();
@@ -42,7 +42,9 @@
 					<tr>
                         <th>Título</th>
                         <th>Data</th>				
+						<?php if ($_SESSION['tipo'] === 'admin'): ?>
 						<th>Autor</th>
+						<?php endif; ?>
 
 						<th class="text-center" colspan="2">Operações</th>
 					</tr>
@@ -53,7 +55,9 @@
 					<tr>	
 						<td> <?= $noticia['titulo'] ?> </td>
 						<td><?= Utils::formatarData($noticia['data']) ?></td>
+						<?php if ($_SESSION['tipo'] === 'admin'): ?>
 						<td><?= $noticia['autor'] ?></td>
+						<?php endif; ?>
 						<td class="text-center"></td>	
 						<td class="text-center">
 							<a class="btn btn-warning" 
