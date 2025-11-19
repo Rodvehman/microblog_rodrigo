@@ -12,14 +12,17 @@
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 		if (empty($_POST['titulo']) || empty($_POST['texto']) ||
-			empty($_POST['imasgem']) || empty($_POST['resumo'])){
+			empty($_FILES['imagem']) || empty($_POST['resumo'])){
 				$erro = "Preencha todos os campos!";
 		} else {
 			try {
 				$titulo = Utils::sanitizar($_POST['titulo']);
 				$texto = Utils::sanitizar($_POST['texto']);
 				$resumo = Utils::sanitizar($_POST['resumo']);
-				
+				// Capturando o arquivo enviado peço input file no HTML
+				$arquivo = $_FILES['imagem'];
+				Utils::dump($arquivo);
+
 			} catch (\Throwable $e) {
 				$erro = "Erro ao inserir notícia. <br>".$e->getMessage();
 			}
