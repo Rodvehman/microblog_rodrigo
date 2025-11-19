@@ -10,6 +10,15 @@
 	$erro = null;
 	$noticiaServico = new NoticiaServico();
 
+	if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+		if (empty($_POST['titulo']) || empty($_POST['texto']) ||
+			empty($_POST['imasgem']) || empty($_POST['resumo'])){
+				$erro = "Preencha todos os campos!";
+		} else {
+
+		}
+	}
+
 	require_once "../includes/cabecalho-admin.php";
 ?>
 
@@ -21,8 +30,12 @@
 			Inserir nova notícia
 		</h2>
 
+		<?php if ($erro): ?>
+			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
+		<?php endif; ?>
+
 		<!-- Obs: É obrigatório colocar o atributo enctype com o valor multipart/form-data para que o seu formulário ACEITE/PERMITA o envio de arquivos -->
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off" enctype="multipart/form-data>
+		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off" enctype="multipart/form-data"; >
 
 			<div class="mb-3">
 				<label class="form-label" for="titulo">Título:</label>
