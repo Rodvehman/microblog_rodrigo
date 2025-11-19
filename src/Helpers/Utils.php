@@ -52,4 +52,8 @@ class Utils {
         header("location:".$destino);
 		exit;
     }
+
+    public static function formatarData(string $valorData):string {
+        return date("d/m/Y H:i", strtotime($valorData));
+    }
 }
