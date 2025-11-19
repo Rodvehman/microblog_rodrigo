@@ -36,7 +36,7 @@
 
         // admin/noticia-insere.php
         public function inserir(Noticia $dadosNoticia):void {
-            $sql = "INSERT INTO noticias (titulo, texto, resumo,imgem, usuario_id)
+            $sql = "INSERT INTO noticias (titulo, texto, resumo, imagem, usuario_id)
                     VALUES (:titulo, :texto, :resumo, :imagem, :usuario_id)";
 
             $consulta = $this->conexao->prepare($sql);

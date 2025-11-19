@@ -21,8 +21,15 @@
 				$resumo = Utils::sanitizar($_POST['resumo']);
 				// Capturando o arquivo enviado peço input file no HTML
 				$arquivo = $_FILES['imagem'];
-				Utils::dump($arquivo);
-
+				Utils::upload($arquivo);
+				// Pegando apenas o nome do arquivo para que seja enviado ao BD
+				$imagem = $arquivo['name'];
+				// Criando objeto para a nova notícia
+				$noticia = new Noticia($titulo, $texto, $resumo, $imagem, $_SESSION['id'] );
+				// Inserindo a notícia
+				$noticiaServico->inserir($noticia);
+				// Redirecionando para notícias.php
+				Utils::redirecionarPara("noticias.php");
 			} catch (\Throwable $e) {
 				$erro = "Erro ao inserir notícia. <br>".$e->getMessage();
 			}
