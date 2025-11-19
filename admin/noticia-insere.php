@@ -15,7 +15,14 @@
 			empty($_POST['imasgem']) || empty($_POST['resumo'])){
 				$erro = "Preencha todos os campos!";
 		} else {
-
+			try {
+				$titulo = Utils::sanitizar($_POST['titulo']);
+				$texto = Utils::sanitizar($_POST['texto']);
+				$resumo = Utils::sanitizar($_POST['resumo']);
+				
+			} catch (\Throwable $e) {
+				$erro = "Erro ao inserir notícia. <br>".$e->getMessage();
+			}
 		}
 	}
 
