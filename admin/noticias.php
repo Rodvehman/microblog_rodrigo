@@ -24,6 +24,8 @@
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">Notícias <span class="badge bg-dark"><?= count($noticias) ?></span></h2>
+		<h3>Perfil: <?= $_SESSION['tipo'] ?></h3>
+
 
 		<?php if ($erro): ?>
 			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
@@ -64,7 +66,6 @@
 							href="noticia-atualiza.php?id=<?= $noticia['id'] ?>">
 							<i class="bi bi-pencil"></i> Atualizar
 							</a>
-						
 							<a class="btn btn-danger excluir" 
 							href="noticia-exclui.php?id=<?= $noticia['id'] ?>">
 							<i class="bi bi-trash"></i> Excluir
