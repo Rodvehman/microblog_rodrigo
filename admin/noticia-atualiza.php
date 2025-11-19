@@ -11,7 +11,7 @@ require_once "../includes/cabecalho-admin.php";
             Atualizar dados da notícia
         </h2>
 
-        <form class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar" autocomplete="off">
+        <form class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar" autocomplete="off" enctype="multipart/form-data">
             <input type="hidden" name="id" value="id da notícia...">
 
             <div class="mb-3">

@@ -1,13 +1,16 @@
 <?php
 	require_once "../src/Database/Conecta.php";
+	require_once "../src/Models/Noticia.php";
 	require_once "../src/Helpers/Utils.php";
 	require_once "../src/Services/AutenticacaoServico.php";
 	require_once "../src/Services/NoticiaServico.php";
 
 	AutenticacaoServico::exigirLogin();
 
-	require_once "../includes/cabecalho-admin.php";
+	$erro = null;
+	$noticiaServico = new NoticiaServico();
 
+	require_once "../includes/cabecalho-admin.php";
 ?>
 
 
@@ -18,7 +21,8 @@
 			Inserir nova notícia
 		</h2>
 
-		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off">
+		<!-- Obs: É obrigatório colocar o atributo enctype com o valor multipart/form-data para que o seu formulário ACEITE/PERMITA o envio de arquivos -->
+		<form class="mx-auto w-75" action="" method="post" id="form-inserir" name="form-inserir" autocomplete="off" enctype="multipart/form-data>
 
 			<div class="mb-3">
 				<label class="form-label" for="titulo">Título:</label>
