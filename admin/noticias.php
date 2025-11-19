@@ -24,7 +24,7 @@
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 		
 		<h2 class="text-center">Notícias <span class="badge bg-dark"><?= count($noticias) ?></span></h2>
-		<h3>Perfil: <?= $_SESSION['tipo'] ?></h3>
+		<h4>Perfil: <?= $_SESSION['tipo'] ?></h4>
 
 
 		<?php if ($erro): ?>

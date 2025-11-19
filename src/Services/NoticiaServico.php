@@ -8,7 +8,7 @@
             $this->conexao = Conecta::getConexao();
         }
 
-        // Versão provisória (básica)
+        // Versão provisória completa em admin/noticias.php
         public function buscar(string $tipoUsuario, int $idUsuario):array {
             if ($tipoUsuario === 'admin'){
                 $sql = "SELECT 
@@ -32,5 +32,20 @@
             $consulta->execute();
 
             return $consulta->fetchAll();
+        }
+
+        // admin/noticia-insere.php
+        public function inserir(Noticia $dadosNoticia):void {
+            $sql = "INSERT INTO noticias (titulo, texto, resumo,imgem, usuario_id)
+                    VALUES (:titulo, :texto, :resumo, :imagem, :usuario_id)";
+
+            $consulta = $this->conexao->prepare($sql);
+            $consulta->bindValue(":titulo", $dadosNoticia->getTitulo());
+            $consulta->bindValue(":texto", $dadosNoticia->getTexto());
+            $consulta->bindValue(":resumo", $dadosNoticia->getResumo());
+            $consulta->bindValue(":imagem", $dadosNoticia->getImagem());
+            $consulta->bindValue(":imagem", $dadosNoticia->getImagem());
+            $consulta->bindValue(":usuario_id", $dadosNoticia->getUsuarioId());
+            $consulta->execute();
         }
     }
