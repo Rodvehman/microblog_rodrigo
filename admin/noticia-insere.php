@@ -80,7 +80,7 @@
 
 	</article>
 </div>
-
+<script src="../js/contagem.js"></script>
 
 <?php
 require_once "../includes/rodape-admin.php";
