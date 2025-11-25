@@ -70,7 +70,7 @@
 							href="noticia-exclui.php?id=<?= $noticia['id'] ?>">
 							<i class="bi bi-trash"></i> Excluir
 							</a>
-			<?php endforeach; ?>
+			<?php endforeach; ?> 	
 						</td>
 					</tr>
 
