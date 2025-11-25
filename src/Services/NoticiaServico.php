@@ -106,9 +106,9 @@
         // admin/noticia-exclui
         public function excluir(int $idNoticia, int $idUsuario, string $tipoUsuario):void {
             if ($tipoUsuario === 'admin'){
-                $sql = "DELETE FROM usuario WHERE id = :id";
+                $sql = "DELETE FROM noticias WHERE id = :id";
             } else {
-                $sql = "DELETE FROM usuario WHERE id = :id AND usario_id = :usuario_id";
+                $sql = "DELETE FROM noticias WHERE id = :id AND usario_id = :usuario_id";
             }
 
             $consulta = $this->conexao->prepare($sql);

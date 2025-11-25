@@ -77,7 +77,7 @@
 				</tbody>                
 			</table>
 	</div>
-		
+		<script src="../js/confirmar-exclusao.js"></script>
 	</article>
 </div>
 

@@ -1,4 +1,20 @@
 <?php
+require_once "../src/Database/Conecta.php";
+require_once "../src/Services/NoticiaServico.php";
+require_once "../src/Helpers/Utils.php";
+require_once "../src/Services/AutenticacaoServico.php";
+AutenticacaoServico::exigirLogin();
+$erro = null;
+$noticiaServico = new NoticiaServico();
+
+$id = Utils::sanitizar($_GET['id'], 'inteiro');
+if (!$id) Utils::redirecionarPara("noticias.php");
+
+try {
+	$noticiaServico->excluir($id, $_SESSION['id'], $_SESSION['tipo']);
+} catch (\Throwable $e) {
+	$erro = "Erro ao excluir notícia.<br>".$e->getMessage();
+}
 
 require_once "../includes/cabecalho-admin.php";
 ?>
@@ -11,12 +27,20 @@ require_once "../includes/cabecalho-admin.php";
 			Excluir notícia
 		</h2>
 
-			
+		<?php if($erro): ?>
+			<p class="alert alert-danger text-center"><?=$erro?></p>
+		<?php else: ?>
+			<p class="alert alert-success text-center">
+			A notícia foi excluída com sucesso</p>
+		<?php endif; ?>
+		
+		<p class="text-center">
+			<a href="noticias.php" class="btn btn-secondary">Voltar</a>
+		</p>
 
 	</article>
 </div>
 
-
 <?php
-require_once "../includes/rodape-admin.php";
+	require_once "../includes/rodape-admin.php";
 ?>

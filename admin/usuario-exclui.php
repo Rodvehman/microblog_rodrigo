@@ -34,6 +34,7 @@ if( $id === $_SESSION['id'] ){
 	}
 }
 
+var_dump($erro);
 
 
 require_once "../includes/cabecalho-admin.php";
@@ -43,21 +44,18 @@ require_once "../includes/cabecalho-admin.php";
 <div class="row">
 	<article class="col-12 bg-white rounded shadow my-1 py-4">
 
-		<h2 class="text-center">
-			Excluir usuário
-		</h2>
+		<h2 class="text-center"> Excluir Notícia </h2>
 
 		<?php if($erro): ?>
 			<p class="alert alert-danger text-center"><?=$erro?></p>
 		<?php else: ?>
 			<p class="alert alert-success text-center">
-			O usuário <b> <?=$dadosDoUsuario['nome']?> </b> foi excluído com 
-			sucesso</p>
+			O usuário foi excluído com sucesso</p>
 		<?php endif; ?>
 			
 		<!-- Link/Botão voltar -->
 		<p class="text-center">
-			<a href="usuarios.php" class="btn btn-secondary">Voltar</a>
+			<a href="noticias.php" class="btn btn-secondary">Voltar</a>
 		</p>
 
 	</article>
