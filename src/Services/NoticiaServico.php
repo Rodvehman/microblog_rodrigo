@@ -103,7 +103,23 @@
             $consulta->execute();
         }
 
-        public function excluir(){
+        // admin/noticia-exclui
+        public function excluir(int $idNoticia, int $idUsuario, string $tipoUsuario):void {
+            if ($tipoUsuario === 'admin'){
+                $sql = "DELETE FROM usuario WHERE id = :id";
+            } else {
+                $sql = "DELETE FROM usuario WHERE id = :id AND usario_id = :usuario_id";
+            }
+
+            $consulta = $this->conexao->prepare($sql);
+            // Não tem mais os métodos, pois seleciona diretamente a notícia, sem Getter, pois não tem mais objeto
+            $consulta->bindValue(":id", $idNoticia);
+
+            if ($tipoUsuario !== 'admin'){
+                $consulta->bindValue(":usuario_id", $idUsuario);
+            }
             
+            $consulta->execute();
+
         }
     }
