@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 				// Redirecionando para notícias.php
 				Utils::redirecionarPara("noticias.php");
 			} catch (\Throwable $e) {
-				$erro = "Erro ao inserir notícia. <br>".$e->getMessage();
+				$erro = "Erro ao atualizar a notícia. <br>".$e->getMessage();
 			}
 		}
 	}
