@@ -108,7 +108,7 @@
             if ($tipoUsuario === 'admin'){
                 $sql = "DELETE FROM noticias WHERE id = :id";
             } else {
-                $sql = "DELETE FROM noticias WHERE id = :id AND usario_id = :usuario_id";
+                $sql = "DELETE FROM noticias WHERE id = :id AND usuario_id = :usuario_id";
             }
 
             $consulta = $this->conexao->prepare($sql);
