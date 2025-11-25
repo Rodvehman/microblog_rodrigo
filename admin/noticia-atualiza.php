@@ -42,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 }
 
 				// Criando objeto para a nova notícia
-				$noticia = new Noticia($titulo, $texto, $resumo, $imagem, $_SESSION['id'] );
-				// Inserindo a notícia
-				$noticiaServico->inserir($noticia);
+				$noticia = new Noticia($titulo, $texto, $resumo, $imagem, $_SESSION['id'], $id);
+				// Atualizar a notícia e o tipo de usuário
+				$noticiaServico->atualizar($noticia, $_SESSION['tipo']);
 				// Redirecionando para notícias.php
 				Utils::redirecionarPara("noticias.php");
 			} catch (\Throwable $e) {
