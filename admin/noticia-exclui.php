@@ -4,6 +4,7 @@ require_once "../src/Services/NoticiaServico.php";
 require_once "../src/Helpers/Utils.php";
 require_once "../src/Services/AutenticacaoServico.php";
 AutenticacaoServico::exigirLogin();
+
 $erro = null;
 $noticiaServico = new NoticiaServico();
 
