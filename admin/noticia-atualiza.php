@@ -1,7 +1,7 @@
 <?php
 
 require_once "../src/Database/Conecta.php";
-require_once "../src/Models/Usuario.php";
+require_once "../src/Models/Noticia.php";
 require_once "../src/Services/NoticiaServico.php";
 require_once "../src/Helpers/Utils.php";
 require_once "../src/Services/AutenticacaoServico.php";
@@ -16,42 +16,42 @@ try {
     $dados = $noticiaServico->buscarPorId($id, $_SESSION['tipo'], $_SESSION['id']);
     if (!$dados) $erro = "Notícia não encontrada";
 } catch (\Throwable $e) {
-    $erro = "Erro ao buscar dados da notícia.<br>".$e->getMessage();
+    $erro = "Erro ao buscar dados da notícia.<br>" . $e->getMessage();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-		if (empty($_POST['titulo']) || empty($_POST['texto']) || empty($_POST['resumo'])){
-				$erro = "Preencha todos os campos!";
-		} else {
-			try {
-				$titulo = Utils::sanitizar($_POST['titulo']);
-				$texto = Utils::sanitizar($_POST['texto']);
-				$resumo = Utils::sanitizar($_POST['resumo']);
-				// Capturando o arquivo enviado peço input file no HTML
-				$arquivo = $_FILES['imagem'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (empty($_POST['titulo']) || empty($_POST['texto']) || empty($_POST['resumo'])) {
+        $erro = "Preencha todos os campos!";
+    } else {
+        try {
+            $titulo = Utils::sanitizar($_POST['titulo']);
+            $texto = Utils::sanitizar($_POST['texto']);
+            $resumo = Utils::sanitizar($_POST['resumo']);
+            // Capturando o arquivo enviado peço input file no HTML
+            $arquivo = $_FILES['imagem'];
 
-                // Se o usuário enviar uma NOVA imagem e se não tem erro no envio
-                if (!empty($arquivo) && $arquivo['error'] === UPLOAD_ERR_OK){
-                    // Faremos o UPLOAD
-                    Utils::upload($arquivo);
-                    // Pegamos o nome e a extesão do arquivo escolhido
-                    $imagem = $arquivo['name'];
-                } else {
-                    // Caso contrário, manteremos a imagem existente
-                    $imagem = $dados['imagem'];
-                }
+            // Se o usuário enviar uma NOVA imagem e se não tem erro no envio
+            if (!empty($arquivo) && $arquivo['error'] === UPLOAD_ERR_OK) {
+                // Faremos o UPLOAD
+                Utils::upload($arquivo);
+                // Pegamos o nome e a extesão do arquivo escolhido
+                $imagem = $arquivo['name'];
+            } else {
+                // Caso contrário, manteremos a imagem existente
+                $imagem = $dados['imagem'];
+            }
 
-				// Criando objeto para a nova notícia
-				$noticia = new Noticia($titulo, $texto, $resumo, $imagem, $_SESSION['id'], $id);
-				// Atualizar a notícia e o tipo de usuário
-				$noticiaServico->atualizar($noticia, $_SESSION['tipo']);
-				// Redirecionando para notícias.php
-				Utils::redirecionarPara("noticias.php");
-			} catch (\Throwable $e) {
-				$erro = "Erro ao atualizar a notícia. <br>".$e->getMessage();
-			}
-		}
-	}
+            // Criando objeto para a nova notícia
+            $noticia = new Noticia($titulo, $texto, $resumo, $imagem, $_SESSION['id'], $id);
+            // Atualizar a notícia e o tipo de usuário
+            $noticiaServico->atualizar($noticia, $_SESSION['tipo']);
+            // Redirecionando para notícias.php
+            Utils::redirecionarPara("noticias.php");
+        } catch (\Throwable $e) {
+            $erro = "Erro ao atualizar a notícia. <br>" . $e->getMessage();
+        }
+    }
+}
 
 require_once "../includes/cabecalho-admin.php";
 ?>
@@ -63,6 +63,10 @@ require_once "../includes/cabecalho-admin.php";
         <h2 class="text-center">
             Atualizar dados da notícia
         </h2>
+
+        <?php if ($erro): ?>
+			<p class="alert alert-danger text-center"> <?= $erro ?> </p>
+		<?php endif; ?>
 
         <form class="mx-auto w-75" action="" method="post" id="form-atualizar" name="form-atualizar" autocomplete="off" enctype="multipart/form-data">
             <input type="hidden" name="id" value="<?= $dados['id'] ?>">
