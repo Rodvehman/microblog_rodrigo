@@ -132,7 +132,7 @@
             return $consulta->fetchAll();
         }
 
-        // 
+        // Métodos para exibição das notícias na página exclusiva
         public function exibirNoticiaCompleta(int $idNoticia):array {
             $sql = "SELECT
                         noticias.id,
@@ -144,7 +144,7 @@
                     FROM noticias JOIN usuarios
                     ON noticias.usuario_id = usuarios.id
                     WHERE noticias.id = :id";
-                    
+
             $consulta =$this->conexao->prepare($sql);
             $consulta->bindValue(":id", $idNoticia);
             $consulta->execute();
