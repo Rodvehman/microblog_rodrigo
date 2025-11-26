@@ -28,7 +28,7 @@ require_once "includes/cabecalho.php";
     <article class="col-12">
         <h2><?= $dados['titulo'] ?></h2>
         <p class="font-weight-light">
-            <time><?= $dados['data'] ?></time> - 
+            <time><?= Utils::formatarData($dados['data']) ?></time> - 
             <span><?= $dados['autor'] ?></span>
         </p>
         <img src="images/<?= $dados['imagem'] ?>" alt="" class="float-start pe-2 img-fluid">
