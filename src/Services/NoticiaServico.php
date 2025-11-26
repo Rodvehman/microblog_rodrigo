@@ -132,7 +132,7 @@
             return $consulta->fetchAll();
         }
 
-        // Métodos para exibição das notícias na página exclusiva
+        // Métodos para exibição da notícia na página exclusiva
         public function exibirNoticiaCompleta(int $idNoticia):array {
             $sql = "SELECT
                         noticias.id,

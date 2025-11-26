@@ -1,7 +1,7 @@
 <?php
 require_once "src/Database/Conecta.php";
 require_once "src/Services/NoticiaServico.php";
-require_once "../microblog_rodrigo/src/Helpers/Utils.php";
+require_once "src/Helpers/Utils.php";
 
 $erro = null;
 $noticias = [];
