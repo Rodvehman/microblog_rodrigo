@@ -150,4 +150,12 @@
             $consulta->execute();
             return $consulta->fetch();
         }
+
+        // Método para fazer busca
+        public function buscarNoticias(string $valorDigitado):array {
+            $sql = "SELECT id, titulo, resumo, data 
+                    FROM noticias 
+                    
+                    ORDER BY data DESC";
+        }
     }
